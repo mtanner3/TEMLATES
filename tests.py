@@ -3,10 +3,14 @@ import glob
 import subprocess
 
 testnames = glob.glob("tc_*.txt")
+testnames.extend(glob.glob("input*.txt"))
 testnames.sort()
 expectnames = [] 
 for test_name in testnames:
-    expect_name = test_name.replace("tc_","expect_")
+    if test_name.startswith("tc_"):
+        expect_name = test_name.replace("tc_","expect_")
+    else:
+        expect_name = test_name.replace("input","output")
     expectnames.append(expect_name)
 
 for idx in range(len(testnames)):
